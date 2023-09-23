@@ -18,7 +18,7 @@ label_spectro(wave, reference = NULL, detection = NULL,
 
 \item{envelope}{Logical to control whether the amplitude envelope is plotted. Default is \code{FALSE}.}
 
-\item{threshold}{A numeric vector on length 1 indicated the amplitude or correlation threshold to plot on the envelope or correlation scores respectively. Default is \code{NULL}.}
+\item{threshold}{A numeric vector on length 1 indicated the amplitude or correlation threshold to plot on the envelope or correlation scores respectively. Default is \code{NULL}. Note that for amplitude the range of valid values is 0-1, while for correlations the range is 0-100.}
 
 \item{smooth}{A numeric vector of length 1 to smooth the amplitude envelope
 with a sum smooth function. It controls the time range (in ms) in which amplitude samples are smoothed (i.e. averaged with neighboring samples). Default is 5. 0 means no smoothing is applied.}
@@ -36,36 +36,40 @@ with a sum smooth function. It controls the time range (in ms) in which amplitud
 \item{...}{Additional arguments to be passed to  \code{\link[seewave]{spectro}} for further spectrogram customization.}
 }
 \value{
-A spectrogram along with lines highlighting the position of sound events in 'reference' and/or 'detection'. If supplied it will also plot the amplitude envelope or corelation scores below the spectroram.
+A spectrogram along with lines highlighting the position of sound events in 'reference' and/or 'detection'. If supplied it will also plot the amplitude envelope or corelation scores below the spectrogram.
 }
 \description{
-\code{label_spectro} plot a spectrogram along with amplitude envelopes or cross-corelation scores
+\code{label_spectro} plot a spectrogram along with amplitude envelopes or cross-correlation scores
 }
 \details{
 This function plots spectrograms annotated with the position of sound events. \strong{Created for graphs included in the vignette, and probably only useful for that or for very short recordings}. Only works on a single 'wave' object at the time.
 }
 \examples{
 {
-# load example data
-data(list = "lbh1", "lbh_reference")
+  # load example data
+  data(list = "lbh1", "lbh_reference")
 
-# adding labels
-label_spectro(wave = lbh1,
-reference = lbh_reference[lbh_reference$sound.files == "lbh1.wav", ],
-wl = 200, ovlp = 50, flim = c(1, 10))
+  # adding labels
+  label_spectro(
+    wave = lbh1,
+    reference = lbh_reference[lbh_reference$sound.files == "lbh1.wav", ],
+    wl = 200, ovlp = 50, flim = c(1, 10)
+  )
 
-# adding envelope
-label_spectro(wave = lbh1,
-detection = lbh_reference[lbh_reference$sound.files == "lbh1.wav", ],
-wl = 200, ovlp = 50, flim = c(1, 10))
+  # adding envelope
+  label_spectro(
+    wave = lbh1,
+    detection = lbh_reference[lbh_reference$sound.files == "lbh1.wav", ],
+    wl = 200, ovlp = 50, flim = c(1, 10)
+  )
 
-# see the package vignette for more examples
+  # see the package vignette for more examples
 }
 
 }
 \references{
 {
-#' Araya-Salas, M. (2021), ohun: diagnosing and optimizing automated sound event detection. R package version 0.1.0.
+#' Araya-Salas, M., Smith-Vidaurre, G., Chaverri, G., Brenes, J. C., Chirino, F., Elizondo-Calvo, J., & Rico-Guevara, A. 2022. ohun: an R package for diagnosing and optimizing automatic sound event detection. BioRxiv, 2022.12.13.520253. https://doi.org/10.1101/2022.12.13.520253
 }
 }
 \seealso{

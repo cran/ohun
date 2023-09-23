@@ -33,27 +33,27 @@ The function returns a 'selection_table' (warbleR package's formats, see \code{\
 \code{get_templates} find the sound events that are closer to the acoustic space centroid (i.e. close to the average acoustic structure) in a reference table.
 }
 \details{
-This function finds sound events (from a reference table) that are representative of the acoustic structure variation of all sound events. This is done by finding the events closer to the centroid of the acoustic space. If the acoustic space is not supplied ('acoustic.space' argument) then the function will estimate it by measuring several acoustic parameters using the function \code{\link[warbleR]{spectro_analysis}} and summarizing it with Principal Component Analysis (after z-transforming parameters) using the function \code{\link[stats]{prcomp}}. The rationale is that a sound event close to the average structure is more likely to share structural features with most events across the acoustic space than a sound event in the periphery of the space.
+This function finds sound events (from a reference table) that are representative of the acoustic structure variation of all sound events. This is done by finding the events closer to the centroid of the acoustic space. If the acoustic space is not supplied ('acoustic.space' argument) then the function will estimate it by measuring several acoustic features using the function \code{\link[warbleR]{spectro_analysis}} (features related to energy distribution in the frequency and time domain as well as features of the dominant frequency contours, see \code{\link[warbleR]{spectro_analysis}} for more details) and summarizing it with Principal Component Analysis (after z-transforming parameters) using the function \code{\link[stats]{prcomp}}. The rationale is that a sound event close to the average structure is more likely to share structural features with most events across the acoustic space than a sound event in the periphery of the space.
 If only 1 template is required the function returns the sound event closest to the acoustic space centroid. If more than 1 template is required additional sound events are returned that are representative of the acoustic space. To do this, the function defines sub-spaces as equal-size slices of a circle centered at the centroid of the acoustic space. A column 'template' is included in the output selection table that identifies each template. Custom acoustic spaces can be supplied with argument 'acoustic.space'. Notice that the function aims to partition spaces in which sounds are somehow homogeneously distributed. When clear clusters are found in the distribution of the acoustic space thus clusters might not match the sub-spaces defined by the function.
 }
 \examples{
 {
-# Save example files into temporary working directory
-data("lbh1", "lbh2", "lbh_reference")
-writeWave(lbh1, file.path(tempdir(), "lbh1.wav"))
-writeWave(lbh2, file.path(tempdir(), "lbh2.wav"))
+  # Save example files into temporary working directory
+  data("lbh1", "lbh2", "lbh_reference")
+  tuneR::writeWave(lbh1, file.path(tempdir(), "lbh1.wav"))
+  tuneR::writeWave(lbh2, file.path(tempdir(), "lbh2.wav"))
 
-# get a single mean template
-template <- get_templates(reference = lbh_reference, path = tempdir())
+  # get a single mean template
+  template <- get_templates(reference = lbh_reference, path = tempdir())
 
-# get 3 templates
-template <- get_templates(reference = lbh_reference, n.sub.spaces = 3, path = tempdir())
+  # get 3 templates
+  template <- get_templates(reference = lbh_reference, n.sub.spaces = 3, path = tempdir())
 }
 
 }
 \references{
 {
-Araya-Salas, M. (2021), ohun: diagnosing and optimizing automated sound event detection. R package version 0.1.0.
+Araya-Salas, M., Smith-Vidaurre, G., Chaverri, G., Brenes, J. C., Chirino, F., Elizondo-Calvo, J., & Rico-Guevara, A. 2022. ohun: an R package for diagnosing and optimizing automatic sound event detection. BioRxiv, 2022.12.13.520253. https://doi.org/10.1101/2022.12.13.520253
 }
 }
 \seealso{

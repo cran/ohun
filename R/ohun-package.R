@@ -14,15 +14,12 @@
 #'   \item Energy-based detection
 #'   \item Template-based detection
 #'   \item Diagnose detection precision
-#'   \item Optimize detection routines based on reference annotations
+#'   \item Improve detection by adjusting parameters to optimize accuracy
 #'   }
 #'
 #' All functions allow the parallelization of tasks, which distributes the tasks among several processors to improve computational efficiency. The package works on sound files in '.wav', '.mp3', '.flac' and '.wac' format.
 #'
 #' @import warbleR
-#' @import rjson
-#' @import RCurl
-#' @import pbapply
 #' @import tuneR
 #' @import seewave
 #' @import fftw
@@ -32,13 +29,13 @@
 #' @import utils
 #' @import methods
 #' @import stats
-#' @import Sim.DiffProc
+#' @importFrom ggplot2 ggplot aes geom_point scale_color_manual facet_grid labs theme_bw geom_polygon scale_fill_manual scale_y_continuous theme_classic
+#' @importFrom checkmate assert_logical assert_character assert_integerish assert_numeric assert_multi_class assert_list assert_function assert_class assert_directory assert_data_frame assert_names makeAssertCollection makeAssertionFunction reportAssertions
 #' @importFrom rlang call_args
-#' @importFrom viridis viridis inferno
-#' @importFrom knitr kable
-#' @importFrom crayon silver bold italic
+#' @importFrom cli style_bold style_italic make_ansi_style num_ansi_colors
 #' @importFrom igraph max_bipartite_match E as_data_frame graph_from_incidence_matrix
 #' @importFrom methods is
+#' @importFrom sf st_polygon st_intersects st_as_sf
 #' @importFrom tuneR writeWave
 #' @importFrom stats cor weighted.mean
 #' @importClassesFrom tuneR Wave
@@ -49,6 +46,8 @@
 #' @docType package
 #' @name ohun
 #' @details License: GPL (>= 2)
+#' @keywords internal
+"_PACKAGE"
 NULL
 #> NULL
 #'

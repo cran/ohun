@@ -11,10 +11,10 @@ cores = 1, thinning = 1, pb = TRUE, smooth = 5, normalize = TRUE)
 \item{path}{Character string containing the directory path where the sound files are located.
 The current working directory is used as default.}
 
-\item{files}{character vector or indicating the sound files that will be analyzed.}
+\item{files}{character vector or indicating the sound files that will be analyzed. Supported file formats:'.wav', '.mp3', '.flac' and '.wac'. If not supplied the function will work on all sound files (in the supported format) in 'path'.}
 
 \item{bp}{Numeric vector of length 2 giving the lower and upper limits of a
-frequency bandpass filter (in kHz). Default is \code{NULL}.}
+frequency bandpass filter (in kHz). Default is \code{NULL}. Bandpass is done using the function code{\link[seewave]{ffilter}}, which applies a short-term Fourier transformation to first create a spectrogram in which the target frequencies are filtered and then is back transform into a wave object using a reverse Fourier transformation.}
 
 \item{hop.size}{A numeric vector of length 1 specifying the time window duration (in ms). Default is 11.6 ms, which is equivalent to 512 wl for a 44.1 kHz sampling rate. Ignored if 'wl' is supplied.}
 
@@ -31,7 +31,7 @@ output (usually very large R objects / files). Default is \code{1} (no thinning)
 \item{pb}{Logical argument to control progress bar. Default is \code{TRUE}.}
 
 \item{smooth}{A numeric vector of length 1 to smooth the amplitude envelope
-with a sum smooth function. It controls the time range (in ms) in which amplitude samples are smoothed (i.e. averaged with neighboring samples). Default is 5. 0 means no smoothing is applied. Note that smoothing is applied before thinning (see 'thinning' argument).}
+with a sum smooth function. It controls the time 'neighborhood' (in ms) in which amplitude samples are smoothed (i.e. averaged with neighboring samples). Default is 5. 0 means no smoothing is applied. Note that smoothing is applied before thinning (see 'thinning' argument). The function  \code{\link[warbleR]{envelope}} is used internally which is analogous to sum smoothing in code{\link[seewave]{env}}. This argument is used internally by \code{\link{get_envelopes}}.}
 
 \item{normalize}{Logical argument to control if envelopes are normalized to a 0-1 range.}
 }
@@ -46,41 +46,43 @@ This function extracts the absolute amplitude envelopes of sound files. Can be u
 }
 \examples{
 {
-# Save to temporary working directory
-data(list = c("lbh1", "lbh2"))
-writeWave(lbh1, file.path(tempdir(), "lbh1.wav"))
-writeWave(lbh2, file.path(tempdir(), "lbh2.wav"))
+  # Save to temporary working directory
+  data(list = c("lbh1", "lbh2"))
+  tuneR::writeWave(lbh1, file.path(tempdir(), "lbh1.wav"))
+  tuneR::writeWave(lbh2, file.path(tempdir(), "lbh2.wav"))
 
-# get raw absolute amplitude envelopes
-envs <- get_envelopes(path = tempdir())
+  # get raw absolute amplitude envelopes
+  envs <- get_envelopes(path = tempdir())
 
-# extract segment for the first sound event in the first sound file
-x <- envs[[1]]$envelope
+  # extract segment for the first sound event in the first sound file
+  x <- envs[[1]]$envelope
 
-# and plot it
-plot(x[(length(x)/9):(length(x)/4)], type = "l", xlab = "samples", ylab = "amplitude")
+  # and plot it
+  plot(x[(length(x) / 9):(length(x) / 4)], type = "l", xlab = "samples", ylab = "amplitude")
 
-# smoothing envelopes
-envs <- get_envelopes(path = tempdir(), smooth = 6.8)
-x <- envs[[1]]$envelope
-plot(x[(length(x)/9):(length(x)/4)], type = "l", xlab = "samples", ylab = "amplitude")
+  # smoothing envelopes
+  envs <- get_envelopes(path = tempdir(), smooth = 6.8)
+  x <- envs[[1]]$envelope
+  plot(x[(length(x) / 9):(length(x) / 4)], type = "l", xlab = "samples", ylab = "amplitude")
 
-# smoothing and thinning
-envs <- get_envelopes(path = tempdir(), thinning = 1/10, smooth = 6.8)
-x <- envs[[1]]$envelope
-plot(x[(length(x)/9):(length(x)/4)], type = "l", xlab = "samples", ylab = "amplitude")
+  # smoothing and thinning
+  envs <- get_envelopes(path = tempdir(), thinning = 1 / 10, smooth = 6.8)
+  x <- envs[[1]]$envelope
+  plot(x[(length(x) / 9):(length(x) / 4)], type = "l", xlab = "samples", ylab = "amplitude")
 
-# no normalization
-envs <- get_envelopes(path = tempdir(), thinning = 1/10, smooth = 6.8)
-x <- envs[[1]]$envelope
-plot(x[(length(x)/9):(length(x)/4)], type = "l", xlab = "samples", ylab = "amplitude",
-normalize = FALSE)
+  # no normalization
+  envs <- get_envelopes(path = tempdir(), thinning = 1 / 10, smooth = 6.8)
+  x <- envs[[1]]$envelope
+  plot(x[(length(x) / 9):(length(x) / 4)],
+    type = "l", xlab = "samples", ylab = "amplitude",
+    normalize = FALSE
+  )
 }
 
 }
 \references{
 {
-Araya-Salas, M. (2021), ohun: diagnosing and optimizing automated sound event detection. R package version 0.1.0.
+Araya-Salas, M., Smith-Vidaurre, G., Chaverri, G., Brenes, J. C., Chirino, F., Elizondo-Calvo, J., & Rico-Guevara, A. 2022. ohun: an R package for diagnosing and optimizing automatic sound event detection. BioRxiv, 2022.12.13.520253. https://doi.org/10.1101/2022.12.13.520253
 }
 }
 \seealso{

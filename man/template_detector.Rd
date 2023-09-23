@@ -31,45 +31,49 @@ This function infers sound events occurrences from cross-correlation scores alon
 }
 \examples{
 {
-# load example data
-data("lbh1", "lbh2", "lbh_reference")
+  # load example data
+  data("lbh1", "lbh2", "lbh_reference")
 
-# save sound files
-writeWave(lbh1, file.path(tempdir(), "lbh1.wav"))
-writeWave(lbh2, file.path(tempdir(), "lbh2.wav"))
+  # save sound files
+  tuneR::writeWave(lbh1, file.path(tempdir(), "lbh1.wav"))
+  tuneR::writeWave(lbh2, file.path(tempdir(), "lbh2.wav"))
 
-# template for the first sound file in 'lbh_reference'
-templ1 <- lbh_reference[1, ]
+  # template for the first sound file in 'lbh_reference'
+  templ1 <- lbh_reference[1, ]
 
-# generate template correlations
-tc <- template_correlator(templates = templ1, path = tempdir(), files = "lbh1.wav")
+  # generate template correlations
+  tc <- template_correlator(templates = templ1, path = tempdir(), files = "lbh1.wav")
 
-# template detection
-td <- template_detector(template.correlations = tc, threshold = 0.4)
+  # template detection
+  td <- template_detector(template.correlations = tc, threshold = 0.4)
 
-# diagnose detection
-diagnose_detection(reference =
-lbh_reference[lbh_reference$sound.files == "lbh1.wav", ],
-detection = td)
+  # diagnose detection
+  diagnose_detection(
+    reference =
+      lbh_reference[lbh_reference$sound.files == "lbh1.wav", ],
+    detection = td
+  )
 
-# template for the second and third sound file in 'lbh_reference'
-# which have similar song types
-templ2 <- lbh_reference[4, ]
+  # template for the second and third sound file in 'lbh_reference'
+  # which have similar song types
+  templ2 <- lbh_reference[4, ]
 
-# generate template correlations
-tc <- template_correlator(templates = templ2, path = tempdir(),
-files = c("lbh1.wav", "lbh2.wav"))
+  # generate template correlations
+  tc <- template_correlator(
+    templates = templ2, path = tempdir(),
+    files = c("lbh1.wav", "lbh2.wav")
+  )
 
-# template detection
-td <- template_detector(template.correlations = tc, threshold = 0.3)
+  # template detection
+  td <- template_detector(template.correlations = tc, threshold = 0.3)
 
-# diagnose detection
-diagnose_detection(reference = lbh_reference, detection = td)
+  # diagnose detection
+  diagnose_detection(reference = lbh_reference, detection = td)
 }
 }
 \references{
 {
-Araya-Salas, M. (2021), ohun: diagnosing and optimizing automated sound event detection. R package version 0.1.0.
+Araya-Salas, M., Smith-Vidaurre, G., Chaverri, G., Brenes, J. C., Chirino, F., Elizondo-Calvo, J., & Rico-Guevara, A. 2022. ohun: an R package for diagnosing and optimizing automatic sound event detection. BioRxiv, 2022.12.13.520253. https://doi.org/10.1101/2022.12.13.520253
 }
 }
 \seealso{

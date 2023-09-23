@@ -2,7 +2,7 @@
 % Please edit documentation in R/split_acoustic_data.R
 \name{split_acoustic_data}
 \alias{split_acoustic_data}
-\title{Splits sound files}
+\title{Splits sound files and associated annotations}
 \usage{
 split_acoustic_data(path = ".", sgmt.dur = 10, sgmts = NULL, files = NULL,
  cores = 1, pb = TRUE, only.sels = FALSE, X = NULL)
@@ -15,7 +15,7 @@ The current working directory is used as default.}
 
 \item{sgmts}{Numeric. Number of segments in which to split each sound file. If supplied 'sgmt.dur' is ignored.}
 
-\item{files}{Character vector indicating the subset of files that will be split.}
+\item{files}{Character vector indicating the subset of files that will be split. Supported file formats:'.wav', '.mp3', '.flac' and '.wac'. If not supplied the function will work on all sound files (in the supported format) in 'path'.}
 
 \item{cores}{Numeric. Controls whether parallel computing is applied.
 It specifies the number of cores to be used. Default is 1 (i.e. no parallel computing).}
@@ -39,22 +39,22 @@ This function aims to reduce the size of sound files in order to simplify some p
 }
 \examples{
 {
-#load data and save to temporary working directory
-data("lbh1", "lbh2")
-writeWave(lbh1, file.path(tempdir(), "lbh1.wav"))
-writeWave(lbh2, file.path(tempdir(), "lbh2.wav"))
+  # load data and save to temporary working directory
+  data("lbh1", "lbh2")
+  tuneR::writeWave(lbh1, file.path(tempdir(), "lbh1.wav"))
+  tuneR::writeWave(lbh2, file.path(tempdir(), "lbh2.wav"))
 
-#split files in 1 s files
-split_acoustic_data(sgmt.dur = 1, path = tempdir())
+  # split files in 1 s files
+  split_acoustic_data(sgmt.dur = 1, path = tempdir())
 
-# Check this folder
-tempdir()
+  # Check this folder
+  tempdir()
 }
 
 }
 \references{
 {
-Araya-Salas, M. (2021), ohun: diagnosing and optimizing automated sound event detection. R package version 0.1.0.
+Araya-Salas, M., Smith-Vidaurre, G., Chaverri, G., Brenes, J. C., Chirino, F., Elizondo-Calvo, J., & Rico-Guevara, A. 2022. ohun: an R package for diagnosing and optimizing automatic sound event detection. BioRxiv, 2022.12.13.520253. https://doi.org/10.1101/2022.12.13.520253
 }
 }
 \seealso{
