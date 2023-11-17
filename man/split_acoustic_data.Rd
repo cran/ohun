@@ -29,7 +29,7 @@ for sound file name (sound.files), selection number (selec), and start and end t
 (start and end). If supplied the data frame/selection table is modified to reflect the position of the selections in the new sound files. Note that some selections could split between 2 segments. To deal with this, a 'split.sels' column is added to the data frame in which those selection are labeled as 'split'. Default is \code{NULL}.}
 }
 \value{
-Wave files for each segment in the working directory (if \code{only.sels = FALSE}, named as 'sound.file.name-#.wav') and a data frame in the R environment containing the name of the original sound files (original.sound.files), the name of the clips (sound.files) and the start and end of clips in the original files. Clips are saved in .wav format. If 'X' is supplied then a data frame with the position of the selections in the newly created clips is returned instead.
+Wave files for each segment in the working directory (if \code{only.sels = FALSE}, named as 'sound.file.name-#.wav') and a data frame in the R environment containing the name of the original sound files (original.sound.files), the name of the clips (sound.files) and the start and end of clips in the original files. Clips are saved in .wav format. If 'X' is supplied then a data frame with the position of the selections in the newly created clips is returned instead. In this case the output data frame contains an additional column, 'split.sels', that inform users whether selections have been split into multiple clips ('split') or not (\code{NA}).
 }
 \description{
 \code{split_acoustic_data} splits sound files (and corresponding selection tables) in shorter segments
@@ -53,9 +53,7 @@ This function aims to reduce the size of sound files in order to simplify some p
 
 }
 \references{
-{
 Araya-Salas, M., Smith-Vidaurre, G., Chaverri, G., Brenes, J. C., Chirino, F., Elizondo-Calvo, J., & Rico-Guevara, A. 2022. ohun: an R package for diagnosing and optimizing automatic sound event detection. BioRxiv, 2022.12.13.520253. https://doi.org/10.1101/2022.12.13.520253
-}
 }
 \seealso{
 \code{\link[warbleR]{cut_sels}}

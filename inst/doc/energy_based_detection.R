@@ -1,7 +1,7 @@
 params <-
 list(EVAL = FALSE)
 
-## ---- eval = FALSE------------------------------------------------------------
+## ----eval = FALSE-------------------------------------------------------------
 #  
 #  # From CRAN would be
 #  install.packages("ohun")
@@ -10,7 +10,7 @@ list(EVAL = FALSE)
 #  library(ohun)
 #  
 
-## ---- eval = FALSE------------------------------------------------------------
+## ----eval = FALSE-------------------------------------------------------------
 #  
 #  # install package
 #  remotes::install_github("maRce10/ohun")
@@ -48,7 +48,7 @@ opts_chunk$set(
 )
 
 
-## ---- eval = TRUE-----------------------------------------------------------------------
+## ----eval = TRUE------------------------------------------------------------------------
 # load example data
 data("lbh1", "lbh2", "lbh_reference")
 
@@ -63,7 +63,7 @@ lbh1_reference <-
 # print data
 lbh1_reference
 
-## ---- eval = TRUE, fig.asp=0.5----------------------------------------------------------
+## ----eval = TRUE, fig.asp=0.5-----------------------------------------------------------
 
 # print spectrogram
 label_spectro(wave = lbh1, reference = lbh1_reference, hop.size = 10, ovlp = 50, flim = c(1, 10), envelope = TRUE)
@@ -95,14 +95,14 @@ simulated_1 <-
     samp.rate = 18
   )$wave
 
-## ---- fig.asp=0.5-----------------------------------------------------------------------
+## ----fig.asp=0.5------------------------------------------------------------------------
 # plot spectrogram and envelope
 label_spectro(wave = simulated_1,
               env = TRUE,
               fastdisp = TRUE)
 
 
-## ---- fig.asp=0.5-----------------------------------------------------------------------
+## ----fig.asp=0.5------------------------------------------------------------------------
 # run detection
 detection <-
   energy_detector(
@@ -147,14 +147,14 @@ detection <- energy_detector(files = "simulated_1.wav", bp = c(1, 8),  threshold
 # plot spectrogram
 label_spectro(wave = simulated_1,  detection = detection)
 
-## ---- fig.asp=0.4, eval = TRUE, echo = TRUE---------------------------------------------
+## ----fig.asp=0.4, eval = TRUE, echo = TRUE----------------------------------------------
 # Detecting 
 detection <- energy_detector(files = "simulated_1.wav", bp = c(5, 8), threshold = 50, smooth = 150, path = tempdir())
 
 # plot spectrogram
 label_spectro(wave = simulated_1,  detection = detection)
 
-## ---- fig.asp=0.4, eval = TRUE, echo = TRUE---------------------------------------------
+## ----fig.asp=0.4, eval = TRUE, echo = TRUE----------------------------------------------
 # Detect
 detection <-
   energy_detector(
@@ -169,7 +169,7 @@ detection <-
 # plot spectrogram
 label_spectro(wave = simulated_1,  detection = detection)
 
-## ---- eval = TRUE, fig.asp=0.5----------------------------------------------------------
+## ----eval = TRUE, fig.asp=0.5-----------------------------------------------------------
 #Creating simulated song
 set.seed(12)
 
@@ -202,14 +202,14 @@ sim2_sel_table <- sim_2$selec.table
 # plot spectrogram
 label_spectro(wave = simulated_2, envelope = TRUE)
 
-## ---- eval = TRUE, fig.asp=0.5----------------------------------------------------------
+## ----eval = TRUE, fig.asp=0.5-----------------------------------------------------------
 # detect sounds
 detection <- energy_detector(files = "simulated_2.wav", threshold = 50, path = tempdir())
 
 # plot spectrogram
 label_spectro(wave = simulated_2, envelope = TRUE, threshold = 50, detection = detection)
 
-## ---- eval = TRUE, fig.asp=0.5----------------------------------------------------------
+## ----eval = TRUE, fig.asp=0.5-----------------------------------------------------------
 # detect sounds
 detection <-
   energy_detector(
@@ -228,7 +228,7 @@ label_spectro(
   detection = detection
 )
 
-## ---- eval = TRUE, fig.asp=0.5----------------------------------------------------------
+## ----eval = TRUE, fig.asp=0.5-----------------------------------------------------------
 # detect sounds
 detection <-
   energy_detector(

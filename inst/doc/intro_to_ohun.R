@@ -1,7 +1,7 @@
 params <-
 list(EVAL = FALSE)
 
-## ---- eval = FALSE----------------------------------------------------------------------
+## ----eval = FALSE-----------------------------------------------------------------------
 #  
 #  # From CRAN would be
 #  install.packages("ohun")
@@ -10,7 +10,7 @@ list(EVAL = FALSE)
 #  library(ohun)
 #  
 
-## ---- eval = FALSE----------------------------------------------------------------------
+## ----eval = FALSE-----------------------------------------------------------------------
 #  
 #  # install package
 #  remotes::install_github("maRce10/ohun")
@@ -21,16 +21,6 @@ list(EVAL = FALSE)
 #  library(warbleR)
 
 ## ----global options, echo = FALSE, message=FALSE, warning=FALSE-------------------------
-
-# library(checkmate)
-# library(ggplot2)
-# source("~/Dropbox/R_package_testing/ohun/R/plot_detection.R")
-# source("~/Dropbox/R_package_testing/ohun/R/internal_functions.R")
-# 
-# 
-# load("../data/lbh2.rda")
-# load("../data/lbh1.rda")
-# load("../data/lbh_reference.rda")
 
 #load packages
 library(ohun)
@@ -56,7 +46,7 @@ opts_chunk$set(
 )
 
 
-## ---- eval = TRUE-----------------------------------------------------------------------
+## ----eval = TRUE------------------------------------------------------------------------
 # load example data
 data("lbh1", "lbh2", "lbh_reference")
 
@@ -66,7 +56,7 @@ lbh_reference
 # convert to data frame
 as.data.frame(lbh_reference)
 
-## ---- eval = TRUE, fig.asp=0.4----------------------------------------------------------
+## ----eval = TRUE, fig.asp=0.4-----------------------------------------------------------
 # save sound file
 tuneR::writeWave(lbh1, file.path(tempdir(), "lbh1.wav"))
 
@@ -87,7 +77,7 @@ lbh1_reference <-
 diagnose_detection(reference = lbh1_reference, detection = lbh1_reference)[, c(1:3, 7:9)]
 
 
-## ---- fig.asp=0.4-----------------------------------------------------------------------
+## ----fig.asp=0.4------------------------------------------------------------------------
 # create new table
 lbh1_detection <- lbh1_reference[3:9,]
 
@@ -105,7 +95,7 @@ label_spectro(
 diagnose_detection(reference = lbh1_reference, detection = lbh1_detection)[, c(1:3, 7:9)]
 
 
-## ---- fig.asp=0.4-----------------------------------------------------------------------
+## ----fig.asp=0.4------------------------------------------------------------------------
 # print spectrogram
 label_spectro(
   wave = lbh1,
@@ -120,7 +110,7 @@ label_spectro(
 diagnose_detection(reference = lbh1_detection, detection = lbh1_reference)[, c(1:3, 7:9)]
 
 
-## ---- fig.asp=0.4-----------------------------------------------------------------------
+## ----fig.asp=0.4------------------------------------------------------------------------
 # create new table
 lbh1_detection <- lbh1_reference
 
@@ -174,7 +164,7 @@ plot_detection(reference = lbh1_reference, detection = lbh1_detection)
 plot_detection(reference = lbh_reference, detection = lbh_reference)
 
 
-## ---- eval = FALSE, echo=FALSE----------------------------------------------------------
+## ----eval = FALSE, echo=FALSE-----------------------------------------------------------
 #  Observaciones:
 #  
 #  avoid having overlapping selections in reference (check with overlapping_sels())

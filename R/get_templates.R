@@ -17,7 +17,7 @@
 #'   sound file.
 #' @export
 #' @name get_templates
-#' @details This function finds sound events (from a reference table) that are representative of the acoustic structure variation of all sound events. This is done by finding the events closer to the centroid of the acoustic space. If the acoustic space is not supplied ('acoustic.space' argument) then the function will estimate it by measuring several acoustic features using the function \code{\link[warbleR]{spectro_analysis}} (features related to energy distribution in the frequency and time domain as well as features of the dominant frequency contours, see \code{\link[warbleR]{spectro_analysis}} for more details) and summarizing it with Principal Component Analysis (after z-transforming parameters) using the function \code{\link[stats]{prcomp}}. The rationale is that a sound event close to the average structure is more likely to share structural features with most events across the acoustic space than a sound event in the periphery of the space.
+#' @details This function finds sound events (from a reference table) that are representative of the acoustic structure variation of all sound events. This is done by finding the events closer to the centroid of the acoustic space. If the acoustic space is not supplied ('acoustic.space' argument) then the function will estimate it by measuring several acoustic features using the function \code{\link[warbleR]{spectro_analysis}} (features related to energy distribution in the frequency and time domain as well as features of the dominant frequency contours, see \code{\link[warbleR]{spectro_analysis}} for more details) and summarizing it with Principal Component Analysis (after z-transforming parameters) using the function \code{\link[stats]{prcomp}}. Acoustic features with missing values are removed before estimating Principal Component Analysis. The rationale is that a sound event close to the average structure is more likely to share structural features with most events across the acoustic space than a sound event in the periphery of the space.
 #' If only 1 template is required the function returns the sound event closest to the acoustic space centroid. If more than 1 template is required additional sound events are returned that are representative of the acoustic space. To do this, the function defines sub-spaces as equal-size slices of a circle centered at the centroid of the acoustic space. A column 'template' is included in the output selection table that identifies each template. Custom acoustic spaces can be supplied with argument 'acoustic.space'. Notice that the function aims to partition spaces in which sounds are somehow homogeneously distributed. When clear clusters are found in the distribution of the acoustic space thus clusters might not match the sub-spaces defined by the function.
 #'
 #' @examples {
@@ -33,9 +33,9 @@
 #'   template <- get_templates(reference = lbh_reference, n.sub.spaces = 3, path = tempdir())
 #' }
 #'
-#' @references {
+#' @references 
 #' Araya-Salas, M., Smith-Vidaurre, G., Chaverri, G., Brenes, J. C., Chirino, F., Elizondo-Calvo, J., & Rico-Guevara, A. 2022. ohun: an R package for diagnosing and optimizing automatic sound event detection. BioRxiv, 2022.12.13.520253. https://doi.org/10.1101/2022.12.13.520253
-#' }
+#' 
 #' @seealso \code{\link{template_detector}}
 #' @author Marcelo Araya-Salas (\email{marcelo.araya@@ucr.ac.cr}). Implements a
 #' modified version of the timer function from seewave.
@@ -81,7 +81,7 @@ get_templates <-
 
       # get PCA
       pca <-
-        stats::prcomp(spectral_parameters[, 2:ncol(spectral_parameters)], scale. = TRUE)
+        stats::prcomp(spectral_parameters[, 3:ncol(spectral_parameters)], scale. = TRUE)
 
       # get variance by PC
       variance_pca <- summary(pca)$importance
@@ -123,10 +123,6 @@ get_templates <-
     # extract those selections
     templates <- reference[template_indx, ]
     templates$template <- names(template_indx)
-
-    # save as a selection table
-    # templates <-
-    #   warbleR::selection_table(templates, path = path, pb = FALSE)
 
     return(templates)
   }

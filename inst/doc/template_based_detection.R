@@ -1,7 +1,7 @@
 params <-
 list(EVAL = FALSE)
 
-## ---- eval = FALSE----------------------------------------------------------------------
+## ----eval = FALSE-----------------------------------------------------------------------
 #  
 #  # From CRAN would be
 #  install.packages("ohun")
@@ -10,7 +10,7 @@ list(EVAL = FALSE)
 #  library(ohun)
 #  
 
-## ---- eval = FALSE----------------------------------------------------------------------
+## ----eval = FALSE-----------------------------------------------------------------------
 #  
 #  # install package
 #  remotes::install_github("maRce10/ohun")
@@ -26,10 +26,6 @@ list(EVAL = FALSE)
 library(ohun)
 library(tuneR)
 library(warbleR)
-
-load("../data/lbh2.rda")
-load("../data/lbh1.rda")
-load("../data/lbh_reference.rda")
 
 # for spectrograms
 par(mar = c(5, 4, 2, 2) + 0.1)
@@ -47,7 +43,7 @@ opts_chunk$set(
 )
 
 
-## ---- eval = TRUE-----------------------------------------------------------------------
+## ----eval = TRUE------------------------------------------------------------------------
 # load example data
 data("lbh1", "lbh2", "lbh_reference")
 
@@ -62,29 +58,29 @@ lbh1_reference <-
 # print data
 lbh1_reference
 
-## ---- eval = TRUE, fig.asp=0.4----------------------------------------------------------
+## ----eval = TRUE, fig.asp=0.4-----------------------------------------------------------
 
 # print spectrogram
 label_spectro(wave = lbh1, reference = lbh1_reference, hop.size = 10, ovlp = 50, flim = c(1, 10))
 
-## ---- eval = FALSE, echo = TRUE---------------------------------------------------------
+## ----eval = FALSE, echo = TRUE----------------------------------------------------------
 #  # get mean structure template
 #  template <-
 #    get_templates(reference = lbh1_reference, path = tempdir())
 
-## ---- fig.asp=0.7, out.width="80%", eval = TRUE, echo = FALSE---------------------------
+## ----fig.asp=0.7, out.width="80%", eval = TRUE, echo = FALSE----------------------------
 par(mar = c(5, 4, 1, 1), bg = "white")
 
 # get mean structure template
 template <-
   get_templates(reference = lbh1_reference, path = tempdir())
 
-## ---- eval = FALSE, echo = TRUE---------------------------------------------------------
+## ----eval = FALSE, echo = TRUE----------------------------------------------------------
 #  # get 3 templates
 #  get_templates(reference = lbh1_reference,
 #                            n.sub.spaces = 3, path = tempdir())
 
-## ---- fig.asp=0.7, out.width="80%", eval = TRUE, echo = FALSE---------------------------
+## ----fig.asp=0.7, out.width="80%", eval = TRUE, echo = FALSE----------------------------
 par(mar = c(5, 4, 1, 1), bg = "white")
 
 # get 3 templates
@@ -109,14 +105,14 @@ detection <-
 
 detection
 
-## ---- fig.asp=0.5-----------------------------------------------------------------------
+## ----fig.asp=0.5------------------------------------------------------------------------
 # plot spectrogram
 label_spectro(
   wave = lbh1,
   detection = detection,
   template.correlation = correlations[[1]],
   flim = c(0, 10),
-  threshold = 0.4,
+  threshold = 0.7,
   hop.size = 10, ovlp = 50)
 
 
@@ -188,19 +184,6 @@ consensus <- consensus_detection(detection = labeled, by = "scores")
 # diagnose
 diagnose_detection(reference = lbh1_reference, detection = consensus)
 
-
-## ---- eval = FALSE, echo=FALSE----------------------------------------------------------
-#  Observaciones:
-#  
-#  avoid having overlapping selections in reference (check with overlapping_sels())
-#  
-#  downsample to a freq range just enough for the sound events of interest
-#  
-#  use hop.size instead of wl
-#  
-#  after split_acoustic_data() another function that returns the position in the original unsplit sound file
-#  
-#  count number of detections per unit of time
 
 ## ----session info, echo=FALSE-----------------------------------------------------------
 sessionInfo()

@@ -25,11 +25,9 @@ samples used to represent amplitude envelopes (i.e. the thinning of the envelope
 than those needed to accurately represent amplitude variation in time, which affects the size of the
 output (usually very large R objects / files). Default is \code{1} (no thinning). Higher sampling rates can afford higher size reduction (e.g. lower thinning values). Reduction is conducted by interpolation using \code{\link[stats]{approx}}. Note that thinning may decrease time precision, and the higher the thinning the less precise the time detection. This argument is used internally by \code{\link{get_envelopes}}. Not used if 'envelopes' are supplied.}
 
-\item{bp}{Numeric vector of length 2 giving the lower and upper limits of a
-frequency bandpass filter (in kHz). Default is \code{NULL}. This argument is used internally by \code{\link{get_envelopes}}. Not used if 'envelopes' are supplied. Bandpass is done using the function code{\link[seewave]{ffilter}}, which applies a short-term Fourier transformation to first create a spectrogram in which the target frequencies are filtered and then is back transform into a wave object using a reverse Fourier transformation.}
+\item{bp}{Numeric vector of length 2 giving the lower and upper limits of a frequency bandpass filter (in kHz). Default is \code{NULL}. This argument is used internally by \code{\link{get_envelopes}}. Not used if 'envelopes' are supplied. Bandpass is done using the function \code{\link[seewave]{ffilter}}, which applies a short-term Fourier transformation to first create a spectrogram in which the target frequencies are filtered and then is back transformed into a wave object using a reverse Fourier transformation.}
 
-\item{smooth}{A numeric vector of length 1 to smooth the amplitude envelope
-with a sum smooth function. It controls the time 'neighborhood' (in ms) in which amplitude samples are smoothed (i.e. averaged with neighboring samples). Default is 5. 0 means no smoothing is applied. Note that smoothing is applied before thinning (see 'thinning' argument). The function  \code{\link[warbleR]{envelope}} is used internally which is analogous to sum smoothing in code{\link[seewave]{env}}. This argument is used internally by \code{\link{get_envelopes}}. Not used if 'envelopes' are supplied.}
+\item{smooth}{A numeric vector of length 1 to smooth the amplitude envelope  with a sum smooth function. It controls the time 'neighborhood' (in ms) in which amplitude samples are smoothed (i.e. averaged with neighboring samples). Default is 5. 0 means no smoothing is applied. Note that smoothing is applied before thinning (see 'thinning' argument). The function  \code{\link[warbleR]{envelope}} is used internally which is analogous to sum smoothing in \code{\link[seewave]{env}}. This argument is used internally by \code{\link{get_envelopes}}. Not used if 'envelopes' are supplied.}
 
 \item{threshold}{Numeric vector of length 1 with a value between 0 and 100 specifying the amplitude threshold for detecting sound event occurrences. Amplitude is represented as a percentage so 0 and 100 represent the lowest amplitude and highest amplitude respectively. Default is 5.}
 
@@ -37,9 +35,7 @@ with a sum smooth function. It controls the time 'neighborhood' (in ms) in which
 
 \item{hold.time}{Numeric vector of length 1. Specifies the time range (in ms) at which selections will be merged (i.e. if 2 selections are separated by less than the specified 'hold.time' they will be merged in to a single selection). Default is \code{0} (no hold time applied).}
 
-\item{min.duration}{Numeric vector of length 1 giving the shortest duration (in
-ms) of the sound events to be detected. It removes sound events below that
-threshold. If 'hold.time' is supplied sound events are first merged and then filtered by duration. Default is 0 (i.e. no filtering based on minimum duration).}
+\item{min.duration}{Numeric vector of length 1 giving the shortest duration (in ms) of the sound events to be detected. It removes sound events below that threshold. If 'hold.time' is supplied sound events are first merged and then filtered by duration. Default is 0 (i.e. no filtering based on minimum duration).}
 
 \item{max.duration}{Numeric vector of length 1 giving the longest duration (in
 ms) of the sound events to be detected. It removes sound events above that
@@ -100,7 +96,6 @@ detec <- energy_detector(envelopes = envs, threshold = 10, hold.time = 150, min.
 # diagnose detection
 diagnose_detection(reference = lbh_reference, detection = detec, time.diagnostics = TRUE)
 
-\dontrun{
 # USIN OTHER SOUND FILE FORMAT (flac program must be installed)
  # fisrt convert files to flac
  warbleR::wav_2_flac(path = tempdir())
@@ -115,18 +110,15 @@ diagnose_detection(reference = lbh_reference, detection = detec, time.diagnostic
 
  # diagnose detection
  diagnose_detection(reference = flac_reference, detection = detec)
- }
 }
 
 }
 \references{
-{
 Araya-Salas, M., Smith-Vidaurre, G., Chaverri, G., Brenes, J. C., Chirino, F., Elizondo-Calvo, J., & Rico-Guevara, A. 2022. ohun: an R package for diagnosing and optimizing automatic sound event detection. BioRxiv, 2022.12.13.520253. https://doi.org/10.1101/2022.12.13.520253
-}
 }
 \seealso{
 \code{\link{optimize_energy_detector}}
 }
 \author{
-Marcelo Araya-Salas (\email{marcelo.araya@ucr.ac.cr}). Implements a
+Marcelo Araya-Salas (\email{marcelo.araya@ucr.ac.cr})
 }

@@ -19,7 +19,7 @@
 #' @seealso \code{\link[warbleR]{cut_sels}}
 #' @export
 #' @name split_acoustic_data
-#' @return Wave files for each segment in the working directory (if \code{only.sels = FALSE}, named as 'sound.file.name-#.wav') and a data frame in the R environment containing the name of the original sound files (original.sound.files), the name of the clips (sound.files) and the start and end of clips in the original files. Clips are saved in .wav format. If 'X' is supplied then a data frame with the position of the selections in the newly created clips is returned instead.
+#' @return Wave files for each segment in the working directory (if \code{only.sels = FALSE}, named as 'sound.file.name-#.wav') and a data frame in the R environment containing the name of the original sound files (original.sound.files), the name of the clips (sound.files) and the start and end of clips in the original files. Clips are saved in .wav format. If 'X' is supplied then a data frame with the position of the selections in the newly created clips is returned instead. In this case the output data frame contains an additional column, 'split.sels', that inform users whether selections have been split into multiple clips ('split') or not (\code{NA}). 
 #' @details This function aims to reduce the size of sound files in order to simplify some processes that are limited by sound file size (big files can be manipulated, e.g. \code{\link{energy_detector}}).
 #' @examples
 #' {
@@ -35,9 +35,9 @@
 #'   tempdir()
 #' }
 #'
-#' @references {
+#' @references 
 #' Araya-Salas, M., Smith-Vidaurre, G., Chaverri, G., Brenes, J. C., Chirino, F., Elizondo-Calvo, J., & Rico-Guevara, A. 2022. ohun: an R package for diagnosing and optimizing automatic sound event detection. BioRxiv, 2022.12.13.520253. https://doi.org/10.1101/2022.12.13.520253
-#' }
+#' 
 #' @author Marcelo Araya-Salas (\email{marcelo.araya@@ucr.ac.cr})
 
 split_acoustic_data <-
