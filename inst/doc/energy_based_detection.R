@@ -177,7 +177,7 @@ set.seed(12)
 durs <- rep(c(0.3, 1), 5)
 
 sim_2 <-
-  sim_songs(
+  simulate_songs(
     n = 10,
     durs = durs,
     freqs = 5,

@@ -98,10 +98,12 @@ template_detector <-
 
     # loop over scores of each dyad
     sel_table_list <-
-      warbleR:::pblapply_wrblr_int(
+      warbleR:::.pblapply(
         pbar = pb,
         X = 1:(length(template.correlations) - 1),
         cl = cl,
+        message = "detecting templates",
+        total = 1,
         FUN = function(i) {
           # extract data for a dyad
           temp_cor <- template.correlations[[i]]
@@ -196,7 +198,7 @@ template_detector <-
     if (all(is.na(sel_table_df$start)) & verbose) {
       print(x = "no sound events above threshold were detected")
     } else if (all(sel_table_df$sound.files %in% list.files(path = corr_call_path)) &
-      all(!is.na(sel_table_df$start))) {
+      any(!is.na(sel_table_df$start))) {
       sel_table_df <-
         warbleR::selection_table(
           X = sel_table_df[!is.na(sel_table_df$start), ],

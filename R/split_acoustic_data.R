@@ -19,7 +19,7 @@
 #' @seealso \code{\link[warbleR]{cut_sels}}
 #' @export
 #' @name split_acoustic_data
-#' @return Wave files for each segment in the working directory (if \code{only.sels = FALSE}, named as 'sound.file.name-#.wav') and a data frame in the R environment containing the name of the original sound files (original.sound.files), the name of the clips (sound.files) and the start and end of clips in the original files. Clips are saved in .wav format. If 'X' is supplied then a data frame with the position of the selections in the newly created clips is returned instead. In this case the output data frame contains an additional column, 'split.sels', that inform users whether selections have been split into multiple clips ('split') or not (\code{NA}). 
+#' @return Wave files for each segment in the working directory (if \code{only.sels = FALSE}, named as 'sound.file.name-#.wav') and a data frame in the R environment containing the name of the original sound files (original.sound.files), the name of the clips (sound.files) and the start and end of clips in the original files. Clips are saved in .wav format. If 'X' is supplied then a data frame with the position of the selections in the newly created clips is returned instead. In this case the output data frame contains an additional column, 'split.sels', that inform users whether selections have been split into multiple clips ('split') or not (\code{NA}). Sound files in 'path' that are not referenced in 'X' will stil be split.
 #' @details This function aims to reduce the size of sound files in order to simplify some processes that are limited by sound file size (big files can be manipulated, e.g. \code{\link{energy_detector}}).
 #' @examples
 #' {
@@ -86,7 +86,7 @@ split_acoustic_data <-
     }
 
     # measure wav duration
-    wvdr <- warbleR::duration_wavs(path = path, files = files)
+    wvdr <- warbleR::duration_sound_files(path = path, files = files)
 
     # calculate start and end of segments and output data frame
     split.df_l <- lapply(files, function(x) {
@@ -180,10 +180,12 @@ split_acoustic_data <-
 
       # split using a loop but only those that are shorter than segments
       a_l <-
-        warbleR:::pblapply_wrblr_int(
+        warbleR:::.pblapply(
           pbar = pb,
           X = which(split.df$original.sound.files != split.df$sound.files),
           cl = cl,
+          message = "splitting sound files",
+          total = 1,
           FUN = function(x) {
             # read clip
             clip <-
@@ -289,7 +291,7 @@ split_acoustic_data <-
           contained.sls$end <- contained.sls$end - Y$start
           contained.sls$start[contained.sls$start < 0] <- 0
           wav_header <-
-            read_wave(
+            warbleR::read_sound_file(
               X = Y$new.sound.files,
               path = path,
               header = TRUE
