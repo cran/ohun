@@ -2,23 +2,23 @@ params <-
 list(EVAL = FALSE)
 
 ## ----eval = FALSE-----------------------------------------------------------------------
-#  
-#  # From CRAN would be
-#  install.packages("ohun")
-#  
-#  #load package
-#  library(ohun)
-#  
+# 
+# # From CRAN would be
+# install.packages("ohun")
+# 
+# #load package
+# library(ohun)
+# 
 
 ## ----eval = FALSE-----------------------------------------------------------------------
-#  
-#  # install package
-#  remotes::install_github("maRce10/ohun")
-#  
-#  #load packages
-#  library(ohun)
-#  library(tuneR)
-#  library(warbleR)
+# 
+# # install package
+# remotes::install_github("maRce10/ohun")
+# 
+# #load packages
+# library(ohun)
+# library(tuneR)
+# library(warbleR)
 
 ## ----global options, echo = FALSE, message=FALSE, warning=FALSE-------------------------
 
@@ -64,9 +64,9 @@ lbh1_reference
 label_spectro(wave = lbh1, reference = lbh1_reference, hop.size = 10, ovlp = 50, flim = c(1, 10))
 
 ## ----eval = FALSE, echo = TRUE----------------------------------------------------------
-#  # get mean structure template
-#  template <-
-#    get_templates(reference = lbh1_reference, path = tempdir())
+# # get mean structure template
+# template <-
+#   get_templates(reference = lbh1_reference, path = tempdir())
 
 ## ----fig.asp=0.7, out.width="80%", eval = TRUE, echo = FALSE----------------------------
 par(mar = c(5, 4, 1, 1), bg = "white")
@@ -76,9 +76,9 @@ template <-
   get_templates(reference = lbh1_reference, path = tempdir())
 
 ## ----eval = FALSE, echo = TRUE----------------------------------------------------------
-#  # get 3 templates
-#  get_templates(reference = lbh1_reference,
-#                            n.sub.spaces = 3, path = tempdir())
+# # get 3 templates
+# get_templates(reference = lbh1_reference,
+#                           n.sub.spaces = 3, path = tempdir())
 
 ## ----fig.asp=0.7, out.width="80%", eval = TRUE, echo = FALSE----------------------------
 par(mar = c(5, 4, 1, 1), bg = "white")

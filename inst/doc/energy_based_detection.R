@@ -2,23 +2,23 @@ params <-
 list(EVAL = FALSE)
 
 ## ----eval = FALSE-------------------------------------------------------------
-#  
-#  # From CRAN would be
-#  install.packages("ohun")
-#  
-#  #load package
-#  library(ohun)
-#  
+# 
+# # From CRAN would be
+# install.packages("ohun")
+# 
+# #load package
+# library(ohun)
+# 
 
 ## ----eval = FALSE-------------------------------------------------------------
-#  
-#  # install package
-#  remotes::install_github("maRce10/ohun")
-#  
-#  #load packages
-#  library(ohun)
-#  library(tuneR)
-#  library(warbleR)
+# 
+# # install package
+# remotes::install_github("maRce10/ohun")
+# 
+# #load packages
+# library(ohun)
+# library(tuneR)
+# library(warbleR)
 
 ## ----global options, echo = FALSE, message=FALSE, warning=FALSE-------------------------
 
@@ -75,17 +75,21 @@ label_spectro(wave = lbh1, reference = lbh1_reference, hop.size = 10, ovlp = 50,
 #Creating vector for duration 
 durs <- rep(c(0.3, 1), 5)
 
+set.seed(123)
+freqs <- sample(c(3, 6), 10, replace = TRUE)
+
 #Creating simulated song
 set.seed(12)
 simulated_1 <-
   warbleR::simulate_songs(
     n = 10,
     durs = durs,
-    freqs = 5,
-    sig2 = 0.01,
+    freqs = freqs,
+    sig2 = 0.1,
     gaps = 0.5,
     harms = 1,
     bgn = 0.1,
+    freq.range = 2,
     path = tempdir(),
     file.name = "simulated_1",
     selec.table = TRUE,
@@ -159,7 +163,7 @@ label_spectro(wave = simulated_1,  detection = detection)
 detection <-
   energy_detector(
     files = "simulated_1.wav",
-    bp = c(0, 6),
+    bp = c(0, 5),
     threshold = 50,
     min.duration = 1,
     smooth = 150,
@@ -176,15 +180,21 @@ set.seed(12)
 #Creating vector for duration
 durs <- rep(c(0.3, 1), 5)
 
+# and a frequency vector
+set.seed(123)
+freqs <- sample(c(3, 6), 10, replace = TRUE)
+
+
 sim_2 <-
   simulate_songs(
     n = 10,
     durs = durs,
-    freqs = 5,
+    freqs = freqs,
     sig2 = 0.01,
     gaps = 0.5,
     harms = 1,
     bgn = 0.1,
+    freq.range = 2,    
     path = tempdir(),
     file.name = "simulated_2",
     selec.table = TRUE,

@@ -2,23 +2,23 @@ params <-
 list(EVAL = FALSE)
 
 ## ----eval = FALSE-----------------------------------------------------------------------
-#  
-#  # From CRAN would be
-#  install.packages("ohun")
-#  
-#  #load package
-#  library(ohun)
-#  
+# 
+# # From CRAN would be
+# install.packages("ohun")
+# 
+# #load package
+# library(ohun)
+# 
 
 ## ----eval = FALSE-----------------------------------------------------------------------
-#  
-#  # install package
-#  remotes::install_github("maRce10/ohun")
-#  
-#  #load packages
-#  library(ohun)
-#  library(tuneR)
-#  library(warbleR)
+# 
+# # install package
+# remotes::install_github("maRce10/ohun")
+# 
+# #load packages
+# library(ohun)
+# library(tuneR)
+# library(warbleR)
 
 ## ----global options, echo = FALSE, message=FALSE, warning=FALSE-------------------------
 
@@ -165,17 +165,17 @@ plot_detection(reference = lbh_reference, detection = lbh_reference)
 
 
 ## ----eval = FALSE, echo=FALSE-----------------------------------------------------------
-#  Observaciones:
-#  
-#  avoid having overlapping selections in reference (check with overlapping_sels())
-#  
-#  downsample to a freq range just enough for the sound events of interest
-#  
-#  use hop.size instead of wl
-#  
-#  after split_acoustic_data() another function that returns the position in the original unsplit sound file
-#  
-#  count number of detections per unit of time
+# Observaciones:
+# 
+# avoid having overlapping selections in reference (check with overlapping_sels())
+# 
+# downsample to a freq range just enough for the sound events of interest
+# 
+# use hop.size instead of wl
+# 
+# after split_acoustic_data() another function that returns the position in the original unsplit sound file
+# 
+# count number of detections per unit of time
 
 ## ----session info, echo=FALSE-----------------------------------------------------------
 sessionInfo()
