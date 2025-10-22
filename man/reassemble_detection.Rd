@@ -2,12 +2,12 @@
 % Please edit documentation in R/reassemble_detection.R
 \name{reassemble_detection}
 \alias{reassemble_detection}
-\title{Reassemble annotations from clips}
+\title{Reassemble detections from clips}
 \usage{
 reassemble_detection(detection, Y, cores = 1, pb = TRUE)
 }
 \arguments{
-\item{detection}{Data frame or selection table (using the warbleR package's format, see \code{\link[warbleR]{selection_table}}) containing the start and end of the signals. Must contained at least the following columns: "sound.files", "selec", "start" and "end".}
+\item{detection}{Data frame or selection table (using the warbleR package's format, see \code{\link[warbleR]{selection_table}}) containing the start and end of sound events. Must contained at least the following columns: "sound.files", "selec", "start" and "end".}
 
 \item{Y}{Data frame with the start and end of clips in the orignal sound files. Must contain the column "original.sound.files", "sound.files" (clip files), "start" and "end".}
 
@@ -17,13 +17,13 @@ It specifies the number of cores to be used. Default is 1 (i.e. no parallel comp
 \item{pb}{Logical argument to control progress bar. Default is \code{TRUE}.}
 }
 \value{
-A data frame or selection table (if 'detection' was also a selection table, warbleR package's format, see \code{\link[warbleR]{selection_table}}) as in 'detection' but removing ambiguous detections (split and merged positives).
+A data frame with annotations refering to the position of the detections in the original sound files.
 }
 \description{
 \code{reassemble_detection} reassembles detections made on clips so they refer to the original sound files
 }
 \details{
-This function will take detections made on clips created with \code{\link{split_acoustic_data}}, and reset their information so they refer back to the original (unsplit) sound files.
+When working with large sound files, splitting them into smaller clips (which can be done with \code{\link{split_acoustic_data}}) can accelerate detection processing. However, this approach complicates result interpretation since detections reference the clips rather than the original files. This function reformats clip-based detections —specifically those created by split_acoustic_data()— to map them back to their original unsplit sound files.
 }
 \examples{
 {

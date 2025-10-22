@@ -1,5 +1,12 @@
 <!-- based on: https://devguide.ropensci.org/newstemplate.html#newstemplate -->
 
+ohun 1.0.4
+=========================
+
+### MINOR IMPROVEMENTS
+
+  * 'overwrite' argument added to `split_acoustic_data()` to allow overwriting existing files
+
 ohun 1.0.3
 =========================
 
