@@ -164,19 +164,6 @@ plot_detection(reference = lbh1_reference, detection = lbh1_detection)
 plot_detection(reference = lbh_reference, detection = lbh_reference)
 
 
-## ----eval = FALSE, echo=FALSE-----------------------------------------------------------
-# Observaciones:
-# 
-# avoid having overlapping selections in reference (check with overlapping_sels())
-# 
-# downsample to a freq range just enough for the sound events of interest
-# 
-# use hop.size instead of wl
-# 
-# after split_acoustic_data() another function that returns the position in the original unsplit sound file
-# 
-# count number of detections per unit of time
-
 ## ----session info, echo=FALSE-----------------------------------------------------------
 sessionInfo()
 

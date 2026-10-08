@@ -77,15 +77,15 @@ template <-
 
 ## ----eval = FALSE, echo = TRUE----------------------------------------------------------
 # # get 3 templates
-# get_templates(reference = lbh1_reference,
-#                           n.sub.spaces = 3, path = tempdir())
+# templates <- get_templates(reference = lbh1_reference,
+#                            n.sub.spaces = 3, path = tempdir())
 
 ## ----fig.asp=0.7, out.width="80%", eval = TRUE, echo = FALSE----------------------------
 par(mar = c(5, 4, 1, 1), bg = "white")
 
 # get 3 templates
 templates <- get_templates(reference = lbh1_reference, 
-                          n.sub.spaces = 3, path = tempdir())
+                           n.sub.spaces = 3, path = tempdir())
 
 ## ---------------------------------------------------------------------------------------
 # get correlations
@@ -173,7 +173,7 @@ diagnose_detection(reference = lbh1_reference, detection = detection, by = "temp
 ## ---------------------------------------------------------------------------------------
 # labeling detection
 labeled <-
-  label_detection(reference = lbh_reference, detection = detection, by = "template")
+  label_detection(reference = lbh1_reference, detection = detection, by = "template")
 
 
 ## ---------------------------------------------------------------------------------------

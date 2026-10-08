@@ -1,12 +1,12 @@
 #' @title Reassemble detections from clips
 #'
 #' @description \code{reassemble_detection} reassembles detections made on clips so they refer to the original sound files
-#' @param detection Data frame or selection table (using the warbleR package's format, see \code{\link[warbleR]{selection_table}}) containing the start and end of sound events. Must contained at least the following columns: "sound.files", "selec", "start" and "end". 
-#' @param Y Data frame with the start and end of clips in the orignal sound files. Must contain the column "original.sound.files", "sound.files" (clip files), "start" and "end".
+#' @param detection Data frame or selection table (using the warbleR package's format, see \code{\link[warbleR]{selection_table}}) containing the start and end of sound events. Must contain at least the following columns: "sound.files", "selec", "start" and "end". 
+#' @param Y Data frame with the start and end of clips in the original sound files. Must contain the column "original.sound.files", "sound.files" (clip files), "start" and "end".
 #' @param cores Numeric. Controls whether parallel computing is applied.
 #'  It specifies the number of cores to be used. Default is 1 (i.e. no parallel computing).
 #' @param pb Logical argument to control progress bar. Default is \code{TRUE}.
-#' @return A data frame with annotations refering to the position of the detections in the original sound files.
+#' @return A data frame with annotations referring to the position of the detections in the original sound files.
 #' @export
 #' @name reassemble_detection
 #' @details When working with large sound files, splitting them into smaller clips (which can be done with \code{\link{split_acoustic_data}}) can accelerate detection processing. However, this approach complicates result interpretation since detections reference the clips rather than the original files. This function reformats clip-based detections —specifically those created by split_acoustic_data()— to map them back to their original unsplit sound files.
@@ -85,9 +85,15 @@ reassemble_detection <- function(detection,
   # report errors
   checkmate::reportAssertions(check_results)
   
+  # all clips in 'detection' must be found in 'Y'
+  if (!all(detection$sound.files %in% Y$sound.files)) {
+    stop2("Some sound files in 'detection' were not found in 'Y$sound.files'")
+  }
+
   # set clusters for windows OS
   if (Sys.info()[1] == "Windows" & cores > 1) {
     cl <- parallel::makeCluster(cores)
+    on.exit(parallel::stopCluster(cl), add = TRUE)
   } else {
     cl <- cores
   }
@@ -113,14 +119,17 @@ reassemble_detection <- function(detection,
     W$sound.files <- Y$original.sound.files[Y$sound.files == x]
     W$start <- W$clip.start + Y$start[Y$sound.files == x]
     W$end <- W$clip.end + Y$start[Y$sound.files == x]
-    W$selec <- seq_len(nrow(W))
-    
+
     return(W)
 })
-  
+
   # Combine the list of data frames into a single data frame
   reassemble_anns <- do.call(rbind, anns_list)
   reassemble_anns <- reassemble_anns[order(reassemble_anns$sound.files, reassemble_anns$start), ]
-  
+
+  # renumber selec sequentially within each original sound file (clips for the same
+  # sound file would otherwise each restart at 1, producing duplicated selec labels)
+  reassemble_anns$selec <- stats::ave(seq_len(nrow(reassemble_anns)), reassemble_anns$sound.files, FUN = seq_along)
+
   return(reassemble_anns)
   }

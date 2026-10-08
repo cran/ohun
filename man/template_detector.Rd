@@ -9,7 +9,10 @@ template_detector(
   cores = 1,
   threshold,
   pb = TRUE,
-  verbose = TRUE
+  verbose = TRUE,
+  save.txt = FALSE,
+  resume = FALSE,
+  path = "."
 )
 }
 \arguments{
@@ -23,10 +26,16 @@ It specifies the number of cores to be used. Default is 1 (i.e. no parallel comp
 \item{pb}{Logical argument to control progress bar. Default is \code{TRUE}.}
 
 \item{verbose}{Logical argument to control if some summary messages are printed to the console.}
+
+\item{save.txt}{Logical argument to control if a '.txt' file in selection table format (compatible with the Raven Pro acoustic analysis software) is saved (using \code{\link[Rraven]{exp_raven}} internally). If so a single file will be saved for each template/sound file combination in the directory given by 'path', overwriting any previous file for that combination. For combinations with no detections the file will still be saved but without any data. The name of the selection will contain the name of the sound file. This is useful for long processes in which users might want to stop and resume or when adding new sound files (see 'resume' argument).}
+
+\item{resume}{Logical argument to control if detection is skipped for template/sound file combinations that already have a '.txt' file saved (from a previous call with 'save.txt = TRUE'), reading the previous results back in instead of recomputing them. Default is \code{FALSE}, meaning detection is always run with the current arguments. Only set to \code{TRUE} to resume an interrupted run (or add new sound files) using the exact same detection parameters as the previous call; otherwise stale results from a previous call can be silently returned.}
+
+\item{path}{Character string containing the directory path where the '.txt' files will be saved (only if \code{save.txt = TRUE}). Default is \code{"."} (current working directory).}
 }
 \value{
 The function returns a 'selection_table' (warbleR package's formats, see \code{\link[warbleR]{selection_table}}) or data frame (if sound files can't be found) with the start and end and correlation score for the
-detected sound events.
+detected sound events. Template/sound file combinations with no detections are not included in the output (a data frame with 0 rows is returned if nothing is detected).
 }
 \description{
 \code{template_detector} find sound event occurrences in cross-correlation vectors from \code{\link{template_correlator}}

@@ -27,11 +27,6 @@ library(ohun)
 library(tuneR)
 library(warbleR)
 
-load("../data/lbh2.rda")
-load("../data/lbh1.rda")
-load("../data/lbh_reference.rda")
-
-
 # for spectrograms
 par(mar = c(5, 4, 2, 2) + 0.1)
 
@@ -102,7 +97,7 @@ simulated_1 <-
 ## ----fig.asp=0.5------------------------------------------------------------------------
 # plot spectrogram and envelope
 label_spectro(wave = simulated_1,
-              env = TRUE,
+              envelope = TRUE,
               fastdisp = TRUE)
 
 
@@ -146,17 +141,32 @@ label_spectro(wave = simulated_1, detection = detection)
 
 ## ----eval = TRUE, echo = TRUE, fig.asp=0.4----------------------------------------------
 # run detection
-detection <- energy_detector(files = "simulated_1.wav", bp = c(1, 8),  threshold = 50, smooth = 150, max.duration = 500, path = tempdir())
+detection <-
+  energy_detector(
+    files = "simulated_1.wav",
+    bp = c(1, 8),
+    threshold = 50,
+    smooth = 150,
+    max.duration = 500,
+    path = tempdir()
+  )
 
 # plot spectrogram
-label_spectro(wave = simulated_1,  detection = detection)
+label_spectro(wave = simulated_1, detection = detection)
 
 ## ----fig.asp=0.4, eval = TRUE, echo = TRUE----------------------------------------------
 # Detecting 
-detection <- energy_detector(files = "simulated_1.wav", bp = c(5, 8), threshold = 50, smooth = 150, path = tempdir())
+detection <-
+  energy_detector(
+    files = "simulated_1.wav",
+    bp = c(5, 8),
+    threshold = 50,
+    smooth = 150,
+    path = tempdir()
+  )
 
 # plot spectrogram
-label_spectro(wave = simulated_1,  detection = detection)
+label_spectro(wave = simulated_1, detection = detection)
 
 ## ----fig.asp=0.4, eval = TRUE, echo = TRUE----------------------------------------------
 # Detect
@@ -171,7 +181,7 @@ detection <-
   )
 
 # plot spectrogram
-label_spectro(wave = simulated_1,  detection = detection)
+label_spectro(wave = simulated_1, detection = detection)
 
 ## ----eval = TRUE, fig.asp=0.5-----------------------------------------------------------
 #Creating simulated song
